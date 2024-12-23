@@ -1,7 +1,7 @@
 title: 桜小路4ak5ra # 站点标题
 description: | # 头像背后的信息（html格式），<br/>代表换行
-  百转千回<br/>
-  为与君随<br/>
+  樱与月<br/>
+  幻想与逻辑<br/>
   大道至简<br/>
 
   <a href="https://space.bilibili.com/321802444">
@@ -43,7 +43,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                 href: /
               - title: '<i class="fa-solid fa-comment fa-fw"></i> 友链'
                 href: /comments/
-              - title: '<i class="fa-solid fa-archive fa-fw"></i> 归档'
+              - title: '<i class="fa-solid fa-archive fa-fw"></i> 文章'
                 href: /archive/
               - title: '<i class="fa-solid fa-tags fa-fw"></i> 标签'
                 href: /tags/
@@ -69,7 +69,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                 </style>
                 <input
                   id="sidebar-search-input"
-                  placeholder="搜索博文"
+                  placeholder="搜索"
                 />
                 <ol
                   id="sidebar-search-results-container"
@@ -203,7 +203,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                     document.getElementById("run_time_hour"),
                     document.getElementById("run_time_minute"),
                     document.getElementById("run_time_second"),
-                    "23/12/2017 13:03:56")// 这是我第一篇CSDN博客的时间
+                    "23/12/2024 13:03:56")// 这是我第一篇CSDN博客的时间
                   </script>
                 </div>
               - | # 不蒜子页面统计，看不懂可不改
@@ -573,7 +573,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                       "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
                       "content": {
                         "link": ["https:\/\/jekyll-theme-WuK.wu-kan.cn"],
-                        "skin": ["蛰伏四季至春日过半盛开", "如霞似锦轰轰烈烈的花朵缀满枝头","却在顷刻间如梦似幻地飘落","那转瞬即逝的绚烂衬托出毁灭的美学"],
+                        "skin": ["要换其她的人吗", "我会去休息的","她们也很高兴见到你"],
                         "hidden": true,
                         "custom": [{
                           "selector": "a",
@@ -589,10 +589,10 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                           "text": "想搜索什么呢？等等我更新"
                         }, {
                           "selector": "#toc",
-                          "text": "这是目录~"
+                          "text": "你在找什么呢~"
                         }, {
                           "selector": ".page-title",
-                          "text": "这是标题~"
+                          "text": "这是标题哦~"
                         }]
                       },
                       "model": [
