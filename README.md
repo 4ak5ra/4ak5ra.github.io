@@ -9,6 +9,7 @@
 <!-- .slide -->
 ## 这是什么
 - 后面的功能思考中
-<!-- .slide -->
+<!-- .slide vertical=true -->
+## 没有了
 
 
