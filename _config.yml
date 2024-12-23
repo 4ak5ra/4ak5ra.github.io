@@ -1,21 +1,21 @@
 title: 桜小路4ak5ra # 站点标题
 description: | # 头像背后的信息（html格式），<br/>代表换行
-  SYSU第5年<br/>
-  水野爱<br/>
-  田宫例四驱车<br/>
+  百转千回，为与君随<br/>
+  只要让她更加闪亮<br/>
+  成为月亮后面的影子也没关系<br/>
   <a href="mailto:i@wu-kan.cn">
     <i class="fa-solid fa-envelope"></i>
   </a>
-  <a href="https://github.com/wu-kan">
+  <a href="https://github.com/4ak5ra">
     <i class="fa-brands fa-github"></i>
   </a>
   <a href="https://vjudge.net/user/WuK">
     <i class="fa-solid fa-smile"></i>
   </a>
-  <a href="https://space.bilibili.com/166390020">
+  <a href="https://space.bilibili.com/321802444">
     <i class="fa-brands fa-bilibili"></i>
   </a>
-  <a href="https://www.zhihu.com/people/wu.kan/activities">
+  <a href="">
     <i class="fa-brands fa-zhihu"></i>
   </a>
   <br/>
@@ -606,12 +606,9 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                         }]
                       },
                       "model": [
-                        "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
-                        "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
-                        "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
                         "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
                         "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
-                        "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+                        
                         "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
                         "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
                     });'
