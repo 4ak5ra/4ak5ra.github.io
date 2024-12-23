@@ -1,23 +1,13 @@
 title: 桜小路4ak5ra # 站点标题
 description: | # 头像背后的信息（html格式），<br/>代表换行
-  SYSU第5年<br/>
-  水野爱<br/>
-  田宫例四驱车<br/>
-  <a href="mailto:i@wu-kan.cn">
-    <i class="fa-solid fa-envelope"></i>
-  </a>
-  <a href="https://github.com/wu-kan">
-    <i class="fa-brands fa-github"></i>
-  </a>
-  <a href="https://vjudge.net/user/WuK">
-    <i class="fa-solid fa-smile"></i>
-  </a>
-  <a href="https://space.bilibili.com/166390020">
+  樱与月<br/>
+  幻想与逻辑<br/>
+  大道至简<br/>
+
+  <a href="https://space.bilibili.com/321802444">
     <i class="fa-brands fa-bilibili"></i>
   </a>
-  <a href="https://www.zhihu.com/people/wu.kan/activities">
-    <i class="fa-brands fa-zhihu"></i>
-  </a>
+
   <br/>
 url: https://4ak5ra.github.io # 你的域名，例如 https://wu-kan.github.io
 baseurl: "" # 假如你的博客是建在某个目录下的，请在这里加上目录名，并且下面配置的所有链接里的`/assets`前也要加，即`/your_baseurl/assets`。这一项结尾不要有'/'。
@@ -53,7 +43,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                 href: /
               - title: '<i class="fa-solid fa-comment fa-fw"></i> 友链'
                 href: /comments/
-              - title: '<i class="fa-solid fa-archive fa-fw"></i> 归档'
+              - title: '<i class="fa-solid fa-archive fa-fw"></i> 文章'
                 href: /archive/
               - title: '<i class="fa-solid fa-tags fa-fw"></i> 标签'
                 href: /tags/
@@ -79,7 +69,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                 </style>
                 <input
                   id="sidebar-search-input"
-                  placeholder="搜索博文"
+                  placeholder="搜索"
                 />
                 <ol
                   id="sidebar-search-results-container"
@@ -213,7 +203,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                     document.getElementById("run_time_hour"),
                     document.getElementById("run_time_minute"),
                     document.getElementById("run_time_second"),
-                    "23/12/2017 13:03:56")// 这是我第一篇CSDN博客的时间
+                    "23/12/2024 13:03:56")// 这是我第一篇CSDN博客的时间
                   </script>
                 </div>
               - | # 不蒜子页面统计，看不懂可不改
@@ -583,7 +573,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                       "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
                       "content": {
                         "link": ["https:\/\/jekyll-theme-WuK.wu-kan.cn"],
-                        "skin": ["要认识一下我的朋友吗","我最喜欢她们了"]
+                        "skin": ["要换其她的人吗", "我会去休息的","她们也很高兴见到你"],
                         "hidden": true,
                         "custom": [{
                           "selector": "a",
@@ -599,19 +589,16 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                           "text": "想搜索什么呢？等等我更新"
                         }, {
                           "selector": "#toc",
-                          "text": "这是目录~"
+                          "text": "你在找什么呢~"
                         }, {
                           "selector": ".page-title",
-                          "text": "这是标题~"
+                          "text": "这是标题哦~"
                         }]
                       },
                       "model": [
-                        
-                        "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
-                        "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
                         "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
                         "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
-                        "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+                        
                         "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
                         "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
                     });'
