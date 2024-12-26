@@ -1,6 +1,3 @@
-<section data-background-image="https://s2.loli.net/2024/12/26/wjM3InBDafFsbkQ.png" data-background-opacity="0.7">
-    <h2>welcome</h2>  
-</section>
 <style>
         section {
             position: relative; /* 使 section 成为定位上下文 */
@@ -14,6 +11,11 @@
             margin: 0; /* 去掉默认边距 */
         }
     </style>
+
+<section data-background-image="https://s2.loli.net/2024/12/26/wjM3InBDafFsbkQ.png" data-background-opacity="0.7">
+    <h2>welcome</h2>  
+</section>
+
 
 <section data-background-image="https://s2.loli.net/2024/12/26/fIbyZeUvGE2YpHz.png" data-background-opacity="0.3">
     <h4>第一次搭博客，在逐步完善中(有时间的话)</h4>
