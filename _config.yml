@@ -41,10 +41,10 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
             nav: # 导航部分的内容，你也可以自己增加文字、图标（来自fontawesome）和对应的链接
               - title: '<i class="fa-solid fa-home fa-fw"></i> 首页'
                 href: /
-              - title: '<i class="fa-solid fa-comment fa-fw"></i> 友链'
-                href: /comments/
-              - title: '<i class="fa-solid fa-archive fa-fw"></i> 文章'
+              - title: '<i class="fa-solid fa-comment fa-fw"></i> 文章'
                 href: /archive/
+              - title: '<i class="fa-solid fa-archive fa-fw"></i> 友链'
+                href: /comments/
               - title: '<i class="fa-solid fa-tags fa-fw"></i> 标签'
                 href: /tags/
               
@@ -69,7 +69,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                 </style>
                 <input
                   id="sidebar-search-input"
-                  placeholder="搜索"
+                  placeholder="要搜索什么呢"
                 />
                 <ol
                   id="sidebar-search-results-container"
@@ -241,7 +241,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
               - | # Copyright声明
                 <div>
                   <i class="fa-solid fa-copyright fa-fw"></i>
-                  2017-2022 WuK
+                  2024-2024 4ak5ra
                 </div>
               
             wordcount: # 全站字数统计
