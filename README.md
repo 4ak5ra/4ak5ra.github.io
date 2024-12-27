@@ -1,5 +1,6 @@
 <section data-background-image="https://s2.loli.net/2024/12/26/wjM3InBDafFsbkQ.png" data-background-opacity="0.6">
- <h2>welcome</h2>  
+ <h2>Welcome to</h2>  
+ <h3>Binaryの美しい世界</h3> 
 </section>
 
 
