@@ -153,7 +153,8 @@ int main()
 
 这个攻击手法就叫ret2text(ret to text),熟悉逆向的你一定知道text就是代码段的意思，所以这个手法的`目的`就是让程序在ret的时候返回到`我们指定的text段的某个位置`(通常是后门函数的位置)
 
->请自行搜索后们函数的相关概念，这里你可以简单的理解为执行了`system("/bin/sh")`就算完成了攻击，我以(wiki rop)[https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/]的例题作为讲解，你可以去该网站自行下载re2text的附件
+请自行搜索后们函数的相关概念，这里你可以简单的理解为执行了`system("/bin/sh")`就算完成了攻击，我以(wiki rop)[https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/]的例题作为讲解，你可以去该网站自行下载re2text的附件
+
 
 请你自行完成`查保护`(即使你现在不知道保护也没关系，只要养成这个好习惯就行了)和`逆向`的过程，我们只讲解攻击过程
 ```c
