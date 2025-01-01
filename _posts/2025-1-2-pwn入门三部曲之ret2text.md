@@ -182,10 +182,11 @@ ret2text这个手法蕴含了一个非常深刻且普遍的思想:`覆写思想`
 
 ![gdb](https://s2.loli.net/2025/01/01/1heNDRPtyuIFqpn.png)  
 
-
+---
 
 我用蓝色的矩阵方框标出了我们应该关注的信息(用gdb调试的时候需要明确自己要获取哪些信息)，gets函数读入数据的地方是0xffffd4ac，bp寄存器的地方是0xffffd518，所以我们要覆盖直到bp寄存器的话就要先填入|0xffffd4ac-0xffffd518|=108的数据，再填入4字节的数据覆盖bp寄存器，所以exp如下：
 
+---
 ```python
 from pwn import *
 sh = process('./ret2text')
