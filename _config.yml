@@ -1,12 +1,10 @@
 title: 桜小路4ak5ra # 站点标题
 description: | # 头像背后的信息（html格式），<br/>代表换行
-  愿你<br/>
-  下一次流泪<br/>
+  愿你下一次流泪<br/>
   是喜极而泣<br/>
   <a href="https://space.bilibili.com/321802444">
     <i class="fa-brands fa-bilibili"></i>
   </a>
-
   <br/>
 url: https://4ak5ra.github.io # 你的域名，例如 https://wu-kan.github.io
 baseurl: "" # 假如你的博客是建在某个目录下的，请在这里加上目录名，并且下面配置的所有链接里的`/assets`前也要加，即`/your_baseurl/assets`。这一项结尾不要有'/'。
@@ -18,14 +16,21 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
       jekyll-theme-WuK: # 我的主题的自定义样式都在这个命名空间
         comments: # 留言页，请先修改这里，确保使用的是你自己的repo！参照<https://utteranc.es/>
           append: |
-            <script
-              repo="4ak5ra/utterances-storage"
-              src="https://utteranc.es/client.js"
-              issue-term="url"
-              theme="github-light"
-              crossorigin="anonymous"
-              async="async"
-            ></script>
+            <script src="https://giscus.app/client.js"
+            data-repo="4ak5ra/blog_commit"
+            data-repo-id="R_kgDOOSUk8A"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOOSUk8M4CorYW"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+            </script>
         default:
           body:
             theme-base: theme-base-0e # 可选的主题色包括08~0f，见 <https://github.com/poole/lanyon>
@@ -244,7 +249,7 @@ defaults: # 将所有配置选项使用<https://jekyllrb.com/docs/configuration/
                 </div>
               
             wordcount: # 全站字数统计
-              enable: false # 本地调试时建议关闭，非常影响站点生成速度（所需时间与博文数量的平方成正比）
+              enable: true # 本地调试时建议关闭，非常影响站点生成速度（所需时间与博文数量的平方成正比）
               prepend: <i class="fa-solid fa-user-edit fa-fw"></i>
               kilo: 千
               unit: 字
