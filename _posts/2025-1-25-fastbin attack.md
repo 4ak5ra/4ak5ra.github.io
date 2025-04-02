@@ -1,7 +1,7 @@
 ---
 redirect_from: /_posts/2018-07-03-%E8%AF%91%E7%A0%81%E6%98%BE%E7%A4%BA%E7%94%B5%E8%B7%AF/
 title: fastbin attack
-tags: 刷题
+tags: 复现
 ---
 
 ## 前言
