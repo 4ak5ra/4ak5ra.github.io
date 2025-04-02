@@ -1,5 +1,11 @@
+redirect_from: /_posts/2018-07-03-%E8%AF%91%E7%A0%81%E6%98%BE%E7%A4%BA%E7%94%B5%E8%B7%AF/
+title: badapple
+tags: 复现
+
+------------------------------
 
 ## chunk_extend
+
 ### 问题描述
 在低版本的chunk_extend中，我们一般直接越界改写size使得堆块大于原本区域，造成合并的时候跨chunk合并。或者通过off by one 漏洞覆写prev_invse低字节。
 使得free该chunk的时候直接`consolidate backward`。   
