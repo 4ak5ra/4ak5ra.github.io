@@ -5,6 +5,7 @@ tags: 复现
 ---
 
 ## 程序分析
+原项目：https://sourceforge.net/p/spimsimulator/code/HEAD/tree/ 
 
 spim 文件里主要是该汇编器前端包括命令行程序的实现。主要的逻辑在 CPU 文件夹里，包括内存初始化，栈，寄存器等重要数据体定义，指令解析和运行等
 
