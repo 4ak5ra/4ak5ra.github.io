@@ -350,8 +350,8 @@
       }
     },
     "posts/随笔/黑客与画家-2025-1-21.md": {
-      "mtime_ns": 1771218019479866506,
-      "size": 10604,
+      "mtime_ns": 1771218423004420629,
+      "size": 10503,
       "post": {
         "id": "黑客与画家-2025-1-21",
         "title": "黑客与画家",
@@ -359,12 +359,12 @@
         "date": "2025-01-21T10:00:00+01:00",
         "category": "随笔",
         "tags": [],
-        "md_path": "../posts/随笔/黑客与画家-2025-1-21.md",
-        "featuredImage": "../assets/images/post/10.png",
+        "md_path": "/posts/随笔/黑客与画家-2025-1-21.md",
+        "featuredImage": "/assets/images/post/10.png",
         "draft": false,
         "_sig": {
-          "mtime_ns": 1771218019479866506,
-          "size": 10604
+          "mtime_ns": 1771218423004420629,
+          "size": 10503
         }
       }
     },

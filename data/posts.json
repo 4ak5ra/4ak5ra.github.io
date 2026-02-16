@@ -166,8 +166,8 @@
     "date": "2025-01-21T10:00:00+01:00",
     "category": "随笔",
     "tags": [],
-    "md_path": "../posts/随笔/黑客与画家-2025-1-21.md",
-    "featuredImage": "../assets/images/post/10.png"
+    "md_path": "/posts/随笔/黑客与画家-2025-1-21.md",
+    "featuredImage": "/assets/images/post/10.png"
   },
   {
     "id": "pwn入门三部曲之ret2text-2025-1-2",

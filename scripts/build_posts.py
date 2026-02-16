@@ -51,7 +51,7 @@ CACHE_JSON = DATA_DIR / "posts_cache.json"
 TZ_NAME = "Europe/Berlin"
 
 DEFAULT_TAGS: List[str] = []
-DEFAULT_FEATURED_IMAGE = "../assets/images/btn/posts.jpg"
+DEFAULT_FEATURED_IMAGE = "/assets/images/btn/posts.jpg"
 
 
 # -------------------------
@@ -183,9 +183,6 @@ def get_sig(p: Path) -> FileSig:
   )
 
 
-# -------------------------
-# build post entry
-# -------------------------
 def build_one(md_file: Path, category: str, sig: FileSig) -> Dict[str, Any]:
   stem = md_file.stem
   slug = stem
@@ -220,12 +217,15 @@ def build_one(md_file: Path, category: str, sig: FileSig) -> Dict[str, Any]:
   featured_image = fm.get("featured_image") or fm.get("featuredImage") or DEFAULT_FEATURED_IMAGE
   featured_image = str(featured_image).strip() if featured_image else DEFAULT_FEATURED_IMAGE
 
+  if featured_image.startswith("../"):
+    featured_image = "/" + featured_image[3:]
+  elif not featured_image.startswith("/"):
+    featured_image = "/" + featured_image.lstrip("./")
+
   # draft: skip output if true
   draft = bool(fm.get("draft", False))
 
-  # md_path should be reachable from /pages/*.html
-  # pages/post.html + "../posts/分类/file.md" -> /posts/分类/file.md ✅
-  md_path = norm_rel(Path("..") / "posts" / category / md_file.name)
+  md_path = "/" + norm_rel(Path("posts") / category / md_file.name)
 
   return {
     "id": slug,
