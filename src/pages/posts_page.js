@@ -148,8 +148,18 @@ function cleanup() {
 // 9. 初始化应用
 initApp();
 
-// 10. 页面卸载时清理
 if (typeof window !== 'undefined') {
+  window.addEventListener('pagehide', (e) => {
+    if (e.persisted) return; 
+    cleanup();
+  });
+
+  // 从 bfcache 恢复时，重新初始化（确保事件、observer 都正常）
+  window.addEventListener('pageshow', (e) => {
+    if (!e.persisted) return;
+    cleanup();
+    initApp();
+  });
+
   window.addEventListener('beforeunload', cleanup);
-  window.addEventListener('pagehide', cleanup);
 }
