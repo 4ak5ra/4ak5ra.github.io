@@ -1,0 +1,255 @@
+:root{
+  /* 背景：更淡的粉 */
+  --bgA:#eeadc2c5;
+  --bgB:#a9e4ee42;
+
+  --ink: rgba(26, 26, 38, .92);
+
+  /* 玻璃 */
+  --glass: rgba(236, 234, 235, 0.842);
+  --glass2: rgba(255,255,255,.18);
+  --shadow: 0 18px 60px rgba(190, 90, 130, .14);
+
+  --radius: 30px;
+
+  --inset: 36px;
+
+  /* 写信精准参数 */
+  --padTop: 30px;
+  --lineGap: 36px;
+  --lineW: 2px;
+}
+
+
+@font-face{
+  font-family: "Xiaolai";
+  src: url("../assets/Xiaolai-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+*{ box-sizing:border-box; }
+html, body{ height:100%; }
+
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  color: var(--ink);
+
+  background:
+    radial-gradient(980px 680px at 18% 12%, rgba(255, 190, 215, .16), transparent 64%),
+    radial-gradient(960px 760px at 88% 16%, rgba(255, 210, 228, .14), transparent 62%),
+    radial-gradient(900px 820px at 55% 115%, rgba(255, 200, 230, .12), transparent 64%),
+    linear-gradient(160deg, var(--bgA), var(--bgB));
+
+  overflow-x:hidden;
+}
+
+.stage{
+  min-height:100%;
+  display:grid;
+  place-items:center;
+  padding: 34px 16px;
+  position:relative;
+}
+
+/* 背景光斑层 */
+.decor-bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+.bokeh{
+  position:absolute;
+  border-radius:999px;
+  opacity:.38;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(255,255,255,0) 62%);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.20) inset,
+    0 18px 70px rgba(255, 170, 205, .14);
+}
+.b1{ width:170px; height:170px; left:10%; top:14%; }
+.b2{ width:260px; height:260px; right:12%; top:16%; opacity:.30; }
+.b3{ width:210px; height:210px; left:16%; bottom:12%; opacity:.26; }
+.b4{ width:320px; height:320px; right:18%; bottom:8%; opacity:.20; }
+
+/* 信纸：更大一点 */
+.paper{
+  position:relative;
+  z-index:1;
+
+  width: min(1120px, 96vw);
+
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--glass), var(--glass2));
+  border: 1px solid rgba(255,255,255,.62);
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  overflow:hidden;
+}
+
+/* 玻璃高光 + 轻微纹理 */
+.paper::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 420px at 28% 8%, rgba(255,255,255,.60), transparent 55%),
+    radial-gradient(900px 520px at 72% 115%, rgba(255,140,180,.10), transparent 62%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.03) 0px,
+      rgba(255,255,255,.03) 1px,
+      transparent 2px,
+      transparent 9px
+    );
+  opacity:.85;
+  mix-blend-mode: overlay;
+}
+
+/* 内圈点线：更深一点 */
+.paper::after{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border-radius: calc(var(--radius) - 14px);
+  border: 1px dashed rgba(215, 120, 155, .38);
+  pointer-events:none;
+}
+
+/* 预留：装饰层（decor.css 承接） */
+.paper-decor{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+}
+
+/* 正文区域 */
+.sheet{
+  position:relative;
+  margin: 34px 30px 30px;
+  border-radius: 24px;
+  overflow:hidden;
+  z-index:1;
+}
+
+/* 横线容器（JS 往里面塞 .line） */
+.lines{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+/* 单条横线 */
+.line{
+  position:absolute;
+  left: var(--inset);
+  right: var(--inset);
+  height: var(--lineW);
+  border-radius: 999px;
+  opacity:.70;
+  background: var(--c);
+  box-shadow: 0 1px 0 rgba(255,255,255,.25);
+}
+
+/* 文字层 */
+.text{
+  font-family: "Xiaolai", serif; 
+  position:relative;
+  padding-left: var(--inset);
+  padding-right: var(--inset);
+  padding-top: var(--padTop);
+  padding-bottom: 34px;
+
+  line-height: var(--lineGap);
+  font-size: 16px;
+  letter-spacing: .2px;
+
+  color: var(--ink);
+  text-shadow: 0 1px 0 rgba(255,255,255,.35);
+}
+
+/* 每行：空格当字符，\n 才换行 */
+.text .row{
+  display:block;
+  height: var(--lineGap);
+  white-space: pre;
+  overflow: hidden;
+}
+
+/* 链接：渐变字体（支持 JS 动态塞 --grad） */
+.name-link{
+  font-family: "Xiaolai", serif;   
+  font-weight: 700;
+  text-decoration: none;
+
+  background-image: var(--grad, linear-gradient(90deg,
+    rgba(110, 175, 245, 1),
+    rgba(120, 220, 175, 1),
+    rgba(255, 140, 185, 1),
+    rgba(170, 140, 245, 1),
+    rgba(95, 210, 220, 1)
+  ));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  padding: 2px 2px;
+  border-radius: 6px;
+  outline: none;
+  transition: filter .15s ease, text-shadow .15s ease;
+}
+
+/* hover：微微提示 */
+.name-link:hover{
+  filter: saturate(1.25) brightness(1.08);
+  text-shadow: 0 0 10px rgba(255, 170, 205, .22);
+}
+
+/* 分隔符与描述 */
+.sep{
+  color: rgba(26, 26, 38, .72);
+}
+.desc{
+  color: rgba(26, 26, 38, .82);
+  font-weight: 500;
+}
+
+/* 小屏适配 */
+@media (max-width: 640px){
+  :root{
+    --inset: 18px;
+    --padTop: 22px;
+    --lineGap: 32px;
+  }
+  .paper{ width: min(1320px, 97vw); }
+  .sheet{ margin: 22px 14px 18px; }
+  .text{ padding-bottom: 26px; }
+}
+
+/* 樱花特效画布 */
+.sakura-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%; 
+  height: 100%;
+  z-index: 10; /* 在最上层，覆盖所有元素 */
+  pointer-events: none;
+}
+
+/* 调整光斑装饰和信纸的层级，确保它们在樱花之下 */
+.decor-bg {
+  z-index: 5; /* 在樱花之下，背景之上 */
+}
+
+.paper {
+  z-index: 8; /* 在光斑之上，樱花之下 */
+}

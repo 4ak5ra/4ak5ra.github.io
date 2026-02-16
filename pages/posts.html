@@ -1,0 +1,39 @@
+<!-- 进入文章后的页面 -->
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>文章列表 - VN Blog</title>
+   <!-- 布局文件 -->
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/posts.css" />
+
+</head>
+
+<body>
+  <main class="scene" id="scene">
+    <section class="posts-shell" aria-label="文章列表区域">
+      <div class="posts-toolbar">
+        <input id="search" class="posts-search" type="search" placeholder="搜索标题/内容…" aria-label="搜索文章" />
+        <div class="posts-meta muted" id="meta"></div>
+      </div>
+
+      
+      <section id="posts-list" class="posts-grid" aria-live="polite" aria-busy="false"></section>
+      <div id="loadMore" class="posts-load-more muted" aria-hidden="true">Loading…</div>
+
+    </section>
+
+    <div class="corner">
+      <a class="pill" href="../index.html">返回主页</a>
+    </div>
+  </main>
+
+  <script type="module" src="../src/pages/posts_page.js"></script>
+</body>
+</html>

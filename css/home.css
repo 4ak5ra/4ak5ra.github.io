@@ -1,0 +1,132 @@
+/* =========================
+   Menu (VN-style buttons)
+   ========================= */
+
+/* 按钮容器 */
+.menu{
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* 单个按钮（默认大小） */
+.menu-item{
+  position: absolute;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  outline: none;
+
+  /* 基础缩放 */
+  transform: translate(-50%, -50%) scale(var(--menu-scale));
+  transform-origin: center;
+
+  /* 过渡 */
+  transition: transform .18s ease, filter .18s ease;
+  user-select: none;
+}
+
+/* Hover：普通按钮在基础上放大 + 轻微变亮 */
+.menu-item:hover{
+  transform: translate(-50%, -50%)
+             scale(calc(var(--menu-scale) * var(--hover-scale)));
+  filter: brightness(1.01) saturate(1.12);
+}
+
+/* featured：文章按钮基础更大 */
+.menu-item--featured{
+  transform: translate(-50%, -50%)
+             scale(calc(var(--menu-scale) * var(--menu-featured-scale)));
+}
+
+/* featured hover：在 featured 基础上放大（覆盖普通 hover 的 transform） */
+.menu-item--featured:hover{
+  transform: translate(-50%, -50%)
+             scale(calc(var(--menu-scale) * var(--menu-featured-scale) * var(--hover-scale)));
+  /* filter继承 .menu-item:hover 的 filter 即可 */
+}
+
+/* 圆形图片 */
+.menu-item .avatar{
+  width: clamp(140px, 18vw, 220px);
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  overflow: hidden;
+
+  box-shadow: var(--shadow);
+  border: 6px solid rgba(255,255,255,.45);
+  backdrop-filter: blur(2px);
+  background: rgba(255,255,255,.08);
+
+  transition: box-shadow .18s ease, border-color .18s ease;
+}
+
+.menu-item .avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  transform: scale(1.02);
+  transition: transform .18s ease;
+
+  filter: saturate(1.05) contrast(1.02);
+}
+
+  /* 文字条  */
+  .menu-item .ribbon{
+    margin-top: -12px; /* 减少上边距 */
+    min-width: clamp(190px, 18vw, 160px); /* 缩小宽度 */
+    padding: 6px 12px; /* 减少内边距 */
+    border-radius: 8px; /* 稍小圆角 */
+
+    background: var(--ribbon-bg);
+    border: 1px solid var(--ribbon-border);
+    box-shadow: 0 8px 20px rgba(0,0,0,.20); /* 减小阴影 */
+    backdrop-filter: blur(6px);
+
+    text-align: center;
+    color: var(--ribbon-text);
+    font-weight: 700;
+    letter-spacing: .04em;
+    font-size: 14px; /* 可选：稍微调整字体大小 */
+  }
+
+
+/* Hover 子元素变化（普通 & featured 都适用） */
+.menu-item:hover .avatar{
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(255,255,255,.70);
+}
+.menu-item:hover .avatar img{
+  transform: scale(1.06);
+}
+.menu-item:hover .ribbon{
+  box-shadow: 0 10px 25px rgba(0,0,0,.20),
+              0 0 0 2px rgba(255,180,220,.45);
+}
+
+/* 键盘可访问性 */
+.menu-item:focus-visible{
+  box-shadow: var(--focus);
+  border-radius: 18px;
+}
+
+.sakura-canvas{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10; /* 提升到最上层 */
+  pointer-events: none;
+}
+
+/* 确保菜单按钮在樱花之下 */
+.menu {
+  z-index: 8;
+}
+
+/* 确保角落按钮也在樱花之下 */
+.corner {
+  z-index: 8;
+}

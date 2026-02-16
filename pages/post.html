@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>文章 - VN Blog</title>
+  <meta name="description" content="VN Blog post" />
+
+<link rel="stylesheet" href="../css/reset.css" />
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/layout.css" />
+<link rel="stylesheet" href="../css/components.css" />
+
+<!-- Prism theme first -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" />
+
+<!-- Your post styles override Prism -->
+<link rel="stylesheet" href="../css/post.css" />
+
+</head>
+
+<body>
+  <main class="post-page" id="scene">
+    <!-- 背景层 -->
+    <div class="post-bg" aria-hidden="true"></div>
+    <!-- 左侧目录：独立滚动、贴左 -->
+    <aside class="toc" id="tocPanel" aria-label="目录">
+      <div class="toc__head">
+        <div class="toc__title">目录</div>
+        <div class="toc__actions">
+          <a class="pill pill--ghost" href="./posts.html">← 列表</a>
+          <a class="pill pill--ghost" href="../index.html">主页</a>
+        </div>
+      </div>
+
+      <nav class="toc__nav" id="toc"></nav>
+    </aside>
+
+    <!-- 右侧正文：页面主滚动区域 -->
+    <article class="post-content" aria-live="polite">
+      <div class="post-shell" id="post" aria-busy="false"></div>
+
+      <nav class="post-nav" aria-label="上一篇下一篇">
+        <a id="prevPost" class="pill" href="#" style="visibility:hidden;">← Prev</a>
+        <a class="pill" href="./posts.html">返回列表</a>
+        <a id="nextPost" class="pill" href="#" style="visibility:hidden;">Next →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Markdown / sanitize -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+
+  <!-- Prism,代码高亮 -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-java.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-cpp.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-go.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-rust.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-asm6502.min.js"></script>
+
+
+  <script type="module" src="../src/pages/post_page.js"></script>
+</body>
+</html>

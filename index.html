@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<!-- 主要是页面元信息和资源引用 -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>这是 状态栏标题 </title>
+
+  <!-- 自己的布局文件 -->
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/components.css" />
+  <link rel="stylesheet" href="./css/home.css" />
+</head>
+
+
+<!-- 可见内容区域 -->
+<body>
+  <!-- 页面的主要内容区 -->
+  <main class="scene" id="scene">
+    <!-- 樱花特效 -->
+    <canvas id="sakura" class="sakura-canvas" aria-hidden="true"></canvas>
+    <!-- <h1 class="title">VN Blog</h1> -->
+    
+    <!-- 导航区域 -->
+    <!-- 这里由 JS 动态注入 4 个按钮 -->
+    <nav class="menu" id="menu" aria-label="主页菜单"></nav>
+    
+    <!-- 把两个快捷键放在角落(硬编码在 HTML 中) -->
+    <!-- <div> 是通用容器，没有语义，主要用于布局 -->
+    <div class="corner">
+      <a class="pill" href="./pages/posts.html">进入文章</a>
+      <a class="pill" href="./pages/about.html">About</a>
+    </div>
+  </main>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

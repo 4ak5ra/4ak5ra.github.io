@@ -1,0 +1,95 @@
+/* 文章列表通用样式模块 - 纯样式，无布局 */
+.posts-shell {
+  position: absolute;
+  left: 50%;
+  top: 14vh;
+  transform: translateX(-50%);
+  width: min(1100px, 92vw);
+  max-height: 78vh;
+  overflow: auto;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(231, 16, 16, 0.22);
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(8px);
+}
+
+.posts-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.posts-search {
+  width: min(520px, 70vw);
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  outline: none;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 980px) {
+  .posts-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .posts-grid { grid-template-columns: 1fr; }
+}
+
+/* 文章卡片通用样式 */
+.post-card {
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.25);
+  overflow: hidden;
+  transition: transform .18s ease, border-color .18s ease;
+  cursor: pointer;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,180,220,.38);
+}
+
+.post-card:focus-visible {
+  outline: 2px solid rgba(255,180,220,.75);
+  outline-offset: 2px;
+}
+
+.post-cover img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+
+.post-body { padding: 12px; }
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: rgba(255,255,255,.78);
+}
+
+.post-title {
+  margin: 8px 0 6px;
+  color: #e2cdd8;
+}
+
+.post-excerpt {
+  color: rgba(255,255,255,.88);
+  margin: 0 0 10px;
+}

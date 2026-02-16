@@ -1,0 +1,608 @@
+/* =========================================================
+   post.css (clean refactor)
+   - Based on your actual DOM output from marked renderer
+   - Prism theme is loaded before this file
+   ========================================================= */
+
+
+/* =========================
+   1) Theme Tokens
+   ========================= */
+:root{
+  /* layout */
+  --toc-w: 220px;
+  --gap: 18px;
+  --content-max: 1550px;
+
+  /* radii */
+  --r-lg: 18px;
+  --r-md: 14px;
+
+  /* glass */
+  --panel: rgba(209, 128, 162, 0.16);
+  --panel-strong: rgba(255, 255, 255, 0.22);
+  --line: rgba(255, 255, 255, 0.26);
+  --shadow: rgba(182, 23, 23, 0.22);
+  --blur: 100px;
+
+  /* text */
+  /* 主文本 */
+  --text: rgba(116, 101, 101, 0.92);
+  /* 文章时间的文本 */
+  --muted: rgba(39, 59, 61, 0.62);
+  --accent: rgba(20, 209, 29, 0.95);
+
+  /* 背景毛玻璃质感 */
+  /* 左上角 */
+  --bg-a: #91dde7d3;
+  /* 中间 */
+  --bg-b: #e79ac186;
+  /* 右下角 */
+  --bg-c: #62e6e67c;
+
+  /* code block */
+  /* 背景 */
+  --code-bg: rgba(209, 169, 194, 0.993);
+  /* 外边框 */
+  --code-border: rgba(223, 130, 177, 0.993);
+  --code-shadow: rgba(238, 156, 206, 0.911);
+  --code-text: rgba(75, 167, 21, 0.973);
+
+  /* inline code */
+  --inline-code-text: #ee0404;
+  --inline-code-bg: rgba(248, 245, 245, 0);
+  --inline-code-border: rgba(198, 13, 28, 0);
+
+  /* pills */
+  --pill-bg: rgba(255,255,255,.30);
+  --pill-bg-hover: rgba(255,255,255,.42);
+  --pill-ghost: rgba(255,255,255,.18);
+  --pill-border: rgba(0,0,0,.12);
+  --pill-text: rgba(10,10,16,.86);
+}
+
+
+/* =========================
+   2) Base / Scroll model
+   ========================= */
+html, body{
+  height: 100%;
+  overflow: hidden;
+}
+
+body{
+  background:
+    radial-gradient(1200px 900px at 20% 12%, rgba(255,255,255,.22), rgba(255,255,255,0) 60%),
+    radial-gradient(1000px 800px at 85% 35%, rgba(255,255,255,.14), rgba(255,255,255,0) 62%),
+    linear-gradient(160deg, var(--bg-a) 0%, var(--bg-b) 48%, var(--bg-c) 100%);
+  background-attachment: fixed;
+}
+
+.post-page{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  color: var(--text);
+  z-index: 1;
+}
+
+
+/* =========================
+   3) Frosted overlay
+   ========================= */
+.post-bg{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(1200px 900px at 55% 18%, rgba(255,255,255,.18), rgba(255,255,255,0) 62%),
+    radial-gradient(900px 700px at 25% 80%, rgba(255,105,180,.18), rgba(255,105,180,0) 58%),
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  background-blend-mode: screen, normal, normal;
+
+  backdrop-filter: blur(14px) saturate(1.25);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+}
+
+.post-bg::before{
+  content:"";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.20;
+  mix-blend-mode: overlay;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.06) 0px,
+      rgba(255,255,255,.06) 1px,
+      rgba(0,0,0,0) 2px,
+      rgba(0,0,0,0) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,0,0,0) 0px,
+      rgba(0,0,0,0) 3px,
+      rgba(255,255,255,.05) 4px,
+      rgba(255,255,255,.05) 5px
+    );
+}
+
+
+/* =========================
+   4) Layout (TOC + Content)
+   ========================= */
+.toc{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--toc-w);
+  overflow: auto;
+  padding: 12px;
+  z-index: 10;
+
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+
+  backdrop-filter: blur(var(--blur)) saturate(1.35);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.35);
+
+  box-shadow:
+    0 18px 60px var(--shadow),
+    inset 0 1px 0 rgba(255,255,255,.55),
+    inset 0 -1px 0 rgba(255,255,255,.12);
+}
+
+.post-content{
+  position: absolute;
+  top: 0;
+  left: calc(var(--toc-w) + var(--gap));
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  padding: 22px 22px 28px;
+  z-index: 2;
+}
+
+.post-shell{
+  max-width: var(--content-max);
+  margin: 0 auto;
+
+  background: var(--panel);
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: var(--r-lg);
+  padding: 18px;
+
+  backdrop-filter: blur(var(--blur)) saturate(1.35);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.35);
+
+  box-shadow:
+    0 18px 70px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.65),
+    inset 0 -1px 0 rgba(255,255,255,.10);
+}
+
+/* scrollbars (shared) */
+.toc::-webkit-scrollbar,
+.post-content::-webkit-scrollbar{ width: 10px; }
+
+.toc::-webkit-scrollbar-thumb,
+.post-content::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.14);
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,.30);
+}
+.toc::-webkit-scrollbar-track,
+.post-content::-webkit-scrollbar-track{ background: transparent; }
+
+
+/* =========================
+   5) TOC details
+   ========================= */
+.toc__head{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  background: var(--panel-strong);
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: var(--r-md);
+  padding: 10px 10px 12px;
+
+  backdrop-filter: blur(var(--blur)) saturate(1.35);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.35);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.10),
+    inset 0 1px 0 rgba(255,255,255,.60);
+}
+
+.toc__title{
+  color: rgba(10,10,16,.92);
+  font-weight: 900;
+  letter-spacing: .03em;
+  margin-bottom: 10px;
+}
+
+.toc__actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.toc__nav{ padding: 12px 6px 18px; }
+
+.toc__nav a{
+  display: block;
+  padding: 8px 10px;
+  border-radius: 12px;
+  color: rgba(10,10,16,.82);
+  text-decoration: none;
+  border: 1px solid transparent;
+  line-height: 1.25;
+}
+
+.toc__nav a:hover{
+  background: rgba(255,255,255,.22);
+  border-color: rgba(0,0,0,.06);
+}
+
+.toc__nav a.is-active{
+  background: rgba(255, 40, 140, .16);
+  border-color: rgba(255, 40, 140, .30);
+  color: rgba(10,10,16,.94);
+  font-weight: 900;
+}
+
+.toc__nav .toc-l2{ padding-left: 10px; }
+.toc__nav .toc-l3{ padding-left: 26px; opacity: .92; }
+
+
+/* =========================
+   6) Post header + badges + pills
+   ========================= */
+.post-head{ margin-bottom: 14px; }
+
+.post-h2{
+  margin: 0 0 8px;
+  color: rgba(10,10,16,.94);
+  font-size: clamp(26px, 2.6vw, 42px);
+  line-height: 1.12;
+}
+
+.post-meta{ margin: 0; color: var(--muted); }
+
+.badge{
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.34);
+  color: rgba(10,10,16,.78);
+  font-weight: 800;
+}
+
+.pill{
+  border: 1px solid var(--pill-border);
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pill:hover{ background: var(--pill-bg-hover); }
+.pill--ghost{ background: var(--pill-ghost); }
+
+
+/* =========================
+   7) Prose typography
+   ========================= */
+.prose{
+  padding: 14px;
+  border-radius: var(--r-md);
+  background: rgba(255,255,255,.36);
+  border: 1px solid rgba(206, 17, 17, 0.979);
+  color: var(--text);
+
+  backdrop-filter: blur(16px) saturate(1.25);
+  -webkit-backdrop-filter: blur(16px) saturate(1.25);
+
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.60);
+
+  font-size: 16px;
+  line-height: 1.85;
+  letter-spacing: .01em;
+}
+
+.prose p{ margin: 0 0 14px; }
+/* 二级标题颜色 */
+.prose h2{
+  margin: 22px 0 12px;
+  font-size: 22px;
+  color: rgba(55, 197, 150, 0.92);
+  border-left: 3px solid rgba(255, 40, 140, .60);
+  padding-left: 10px;
+}
+
+.prose h3{
+  margin: 18px 0 10px;
+  font-size: 18px;
+  color: rgba(86, 161, 199, 0.9);
+}
+
+.prose h4{
+  margin: 18px 0 10px;
+  font-size: 18px;
+  color: rgba(183, 88, 202, 0.9);
+}
+
+.prose a{
+  color: var(--accent);
+  font-weight: 900;
+  text-decoration: none;
+}
+.prose a:hover{ text-decoration: underline; }
+
+.prose strong,
+.prose b{
+  color: #ff2c8a;
+  font-weight: 900;
+}
+
+.prose blockquote{
+  margin: 14px 0;
+  padding: 10px 12px;
+  border-left: 4px solid rgba(255, 40, 140, .35);
+  background: rgba(255,255,255,.26);
+  border-radius: 12px;
+  color: rgba(10,10,16,.78);
+}
+
+
+/* =========================
+   8) Code (your renderer + Prism)
+   ========================= */
+
+/* inline code (NOT inside pre) */
+.prose :not(pre) > code{
+  color: var(--inline-code-text);
+  background: var(--inline-code-bg);
+  border: 1px solid var(--inline-code-border);
+  padding: 0.12em 0.35em;
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* block code: your renderer outputs <pre class="code-block language-xxx"> */
+.prose pre.code-block{
+  position: relative;
+  margin: 12px 0;
+  border-radius: 14px;
+  overflow: auto;
+
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+
+  box-shadow:
+    0 12px 40px var(--code-shadow),
+    inset 0 1px 0 rgba(255,255,255,.70);
+}
+
+/* Prism targets code[class*="language-"], keep background transparent */
+.prose pre.code-block > code{
+  display: block;
+  padding: 16px;
+
+  background: transparent;     /* important: stop Prism theme from painting */
+  color: var(--code-text);      /* your base text; tokens will still color spans */
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* selection inside blocks */
+.prose pre.code-block ::selection{
+  background: rgba(255, 44, 138, 0.22);
+}
+
+/* language badge (uses data-lang) */
+.prose pre.code-block::before{
+  content: attr(data-lang);
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.46);
+  border: 1px solid rgba(0,0,0,.10);
+  color: rgba(10,10,16,.70);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .02em;
+
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+}
+
+/* copy button (your renderer inserts it) */
+.prose pre.code-block .copy-btn{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.46);
+  color: rgba(10,10,16,.82);
+
+  cursor: pointer;
+  user-select: none;
+
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.10),
+    inset 0 1px 0 rgba(255,255,255,.70);
+}
+
+.prose pre.code-block .copy-btn:hover{ transform: translateY(-1px); }
+.prose pre.code-block .copy-btn:active{ transform: translateY(0); }
+
+/* make room for badges/buttons so code doesn't sit under them */
+.prose pre.code-block > code{
+  padding-top: 44px; /* 给左边语言标签 + 右边 copy 按钮留空间 */
+}
+
+
+/* =========================
+   9) Bottom nav
+   ========================= */
+.post-nav{
+  max-width: var(--content-max);
+  margin: 12px auto 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+
+/* =========================
+   10) Responsive
+   ========================= */
+@media (max-width: 920px){
+  :root{ --toc-w: 250px; }
+  .post-content{ left: calc(var(--toc-w) + 12px); padding: 16px; }
+}
+
+@media (max-width: 720px){
+  :root{ --toc-w: 210px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ scroll-behavior: auto !important; }
+}
+
+
+
+
+/* =========================================
+   Prism limited palette (6 colors only)
+   Colors: dark red / black / blue / purple / green / pink
+   Put at END of post.css
+   ========================================= 
+   
+   代码高亮规则
+   */
+
+:root{
+  /* allowed palette */
+  --hl-black: rgba(10,10,16,.90); /* 主体黑 */
+  --hl-red:   #dd0808e8;            /* 深红：关键字/控制流/强调 */
+  --hl-blue:  #ca1871;            /* 粉：字符串/属性值/数字等 */
+  --hl-purple:#490fbd;            /* 紫：函数/类名/类型/内建 */
+  --hl-green: #0a8d11;            /* 绿：注释/文档注释 */
+  --hl-pink:  #0b0c69;            /* 深蓝：HTML tag / CSS selector / 重要标记 */
+}
+
+/* 0) 基础：让代码块整体“黑为主”（浅色底最清晰） */
+.prose pre.code-block,
+.prose pre[class*="language-"]{
+  color: var(--hl-black);
+}
+.prose pre.code-block > code,
+.prose pre[class*="language-"] > code{
+  color: var(--hl-black) !important;
+}
+
+/* 1) 注释：绿色（含 doc comment） */
+.prose pre .token.comment,
+.prose pre .token.prolog,
+.prose pre .token.doctype,
+.prose pre .token.cdata{
+  color: var(--hl-green) !important;
+  font-style: normal !important;
+}
+
+/* 2) 关键字 / 控制流 / 重要：深红（更醒目但不刺眼） */
+.prose pre .token.keyword,
+.prose pre .token.control,
+.prose pre .token.important{
+  color: var(--hl-red) !important;
+  font-weight: 700;
+}
+
+/* 3) 字符串 / attr-value / regex：深蓝（阅读友好） */
+.prose pre .token.string,
+.prose pre .token.char,
+.prose pre .token.regex,
+.prose pre .token.attr-value{
+  color: var(--hl-blue) !important;
+}
+
+/* 4) 数字/布尔/常量：蓝（和字符串同色，整体更“黑+蓝”） */
+.prose pre .token.number,
+.prose pre .token.boolean,
+.prose pre .token.constant{
+  color: var(--hl-blue) !important;
+}
+
+/* 5) 函数/类名/类型/内建：紫（用于“可调用/可实例化/类型”） */
+.prose pre .token.function,
+.prose pre .token.class-name,
+.prose pre .token.builtin,
+.prose pre .token.namespace,
+.prose pre .token.type{
+  color: var(--hl-purple) !important;
+  font-weight: 650;
+}
+
+/* 6) HTML/XML 标签 + CSS 选择器：粉（让结构信息一眼可见） */
+.prose pre .token.tag,
+.prose pre .token.selector{
+  color: var(--hl-pink) !important;
+  font-weight: 700;
+}
+
+/* 7) 属性名（HTML attr-name / CSS property）：黑（避免满屏彩色） */
+.prose pre .token.attr-name,
+.prose pre .token.property,
+.prose pre .token.variable{
+  color: var(--hl-black) !important;
+}
+
+/* 8) 操作符/标点：黑（让视觉更稳定） */
+.prose pre .token.operator,
+.prose pre .token.punctuation{
+  color: var(--hl-black) !important;
+}
+
+/* 9) 标记删除/插入（diff 类内容）：红/绿（仍在 6 色内） */
+.prose pre .token.deleted{ color: var(--hl-red) !important; }
+.prose pre .token.inserted{ color: var(--hl-green) !important; }
+
+/* 10) 少数主题会给 token 上背景，强制透明，避免“脏块” */
+.prose pre .token{
+  background: transparent !important;
+  text-shadow: none !important;
+}
+
+/* 11) 可选：加粗高亮不改颜色 */
+.prose pre .token.keyword,
+.prose pre .token.function,
+.prose pre .token.tag{
+  letter-spacing: .01em;
+}

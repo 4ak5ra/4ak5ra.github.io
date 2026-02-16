@@ -1,0 +1,29 @@
+/* 分类过滤和分页样式 */
+.posts-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tag-filter {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  cursor: pointer;
+}
+
+.tag-filter.active {
+  background: rgba(255,180,220,.35);
+  border-color: rgba(255,180,220,.55);
+}
+
+/* 分页样式 */
+.posts-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}

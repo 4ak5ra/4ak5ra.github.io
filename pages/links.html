@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>links</title>
+
+  <!-- 主体样式 -->
+  <link rel="stylesheet" href="../css/links_page.css" />
+</head>
+
+<body>
+  <main class="stage">
+    
+    <!-- 樱花特效背景 -->
+    <canvas id="sakura" class="sakura-canvas" aria-hidden="true"></canvas>
+    
+    <!-- 背景光斑装饰 -->
+    <div class="decor-bg" aria-hidden="true">
+      <span class="bokeh b1"></span>
+      <span class="bokeh b2"></span>
+      <span class="bokeh b3"></span>
+      <span class="bokeh b4"></span>
+    </div>
+
+    <!-- 信纸 -->
+    <section class="paper" aria-label="信纸">
+      <!-- 左上角丝带（两条尾巴） -->
+      <div class="paper-fold" aria-hidden="true"></div>
+      <!-- 这里是“信纸装饰层”：后续你要加贴纸/花/角标等，全放这里 -->
+      <div class="paper-decor" aria-hidden="true"></div>
+
+      <!-- 正文：横线 + 精准排版文字 -->
+      <div class="sheet" id="sheet" aria-label="信纸正文区域">
+        <div class="lines" id="lines" aria-hidden="true"></div>
+        <div class="text" id="text"></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../src/pages/links_page.js"></script>
+</body>
+</html>

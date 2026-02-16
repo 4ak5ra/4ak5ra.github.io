@@ -1,0 +1,153 @@
+@import "../modules/_post-list.css";
+@import "../modules/_category-filter.css";
+
+/* =========================
+   Category page: no posts-shell
+   Background blur via fixed layers
+   ========================= */
+
+/* base.css 里 body overflow:hidden，这里只针对分类页解锁滚动 */
+.category-page-scene{
+  height: 100%;
+  min-height: 100vh;
+  overflow: auto;
+  position: relative;
+  background: none;
+}
+
+/* 背景虚化层：固定在视口，永远全屏 */
+.category-page-scene::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  background: url('../../assets/images/category.jpg') center / cover no-repeat;
+  filter: blur(4px) saturate(1.08) contrast(1.05);
+  transform: scale(1.04);
+}
+
+/* 遮罩层：让文字更清晰 */
+.category-page-scene::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: rgba(233, 227, 227, 0);
+  pointer-events: none;
+}
+
+/* 内容层盖在背景之上 */
+.category-page-scene > *{
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================
+   分类按钮：固定到右上角，不随滚动
+   ========================= */
+.category-page-scene .posts-filters{
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  z-index: 999;
+
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  max-width: min(520px, 92vw);
+}
+
+.category-page-scene .corner{
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  top: auto;          
+  z-index: 999;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+
+  margin: 0;
+  width: auto;
+  height: auto;
+}
+
+.category-page-scene .corner .pill{
+  width: auto;
+  max-width: 80vw;
+  white-space: nowrap;
+  display: inline-flex; 
+}
+
+
+.category-page-scene .posts-archive{
+  margin: 140px 22px 30px;
+  padding-top: 8px;
+}
+
+/* 年份标题 */
+.category-page-scene .archive-year-title{
+  margin: 30px 0 14px;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* 列表 */
+.category-page-scene .archive-list{
+  margin: 0 0 10px 28px;
+  padding: 0;
+}
+
+/* 条目间距更宽 */
+.category-page-scene .archive-item{
+  margin: 29px 0;
+}
+
+/* 链接：日期 + 标题 */
+.category-page-scene .archive-link{
+  text-decoration: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 14px;
+
+  padding: 4px 6px;
+  border-radius: 10px;
+  background: rgba(221, 215, 220, 0.089);
+}
+
+.category-page-scene .archive-link:hover{
+  background: rgba(161, 59, 219, 0.89);
+}
+
+/* 日期 */
+.category-page-scene .archive-date{
+  font-style: italic;
+  opacity: 0.9;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* 标题 */
+.category-page-scene .archive-title{
+  font-weight: 500;
+}
+
+/* 分类按钮 hover：hover 后出现底色（仅分类页） */
+.category-page-scene .tag-filter{
+  transition: background .18s ease, transform .18s ease, border-color .18s ease;
+  border-radius: 10px;
+}
+
+.category-page-scene .tag-filter:hover{
+  background: rgb(190, 33, 22);
+  border-color: rgb(231, 1, 1);
+  transform: translateY(-1px);
+}

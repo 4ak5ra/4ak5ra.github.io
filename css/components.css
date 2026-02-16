@@ -1,0 +1,48 @@
+/* 通用弱化文字 */
+.muted{
+  color: rgba(255,255,255,.75);
+}
+
+/* 徽章（分类/标签等） */
+.badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 胶囊按钮 */
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: #fff;
+  text-decoration:none;
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.25);
+  transition: transform .18s ease, background .18s ease;
+}
+
+.pill:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.20);
+}
+
+/* 简单淡入动画（用于卡片） */
+.fade-in{
+  animation: fadeIn .18s ease both;
+}
+@keyframes fadeIn{
+  from{ opacity: 0; transform: translateY(2px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
