@@ -1,51 +1,65 @@
-// 契约：处理DOM事件绑定，副作用集中管理
+// 处理DOM事件绑定，副作用集中管理
 // 所有函数都返回清理函数（用于卸载时清理）
+
 
 export function setupCardNavigation(listContainer) {
   if (!listContainer) return () => {};
-  
+
+  function resolveHref(card) {
+    if (!card) return "";
+    const direct = card.dataset?.href?.trim();
+    if (direct) return direct;
+
+
+    const slug = (card.dataset?.slug || card.dataset?.id || "").trim();
+    if (!slug) return "";
+
+
+    return `./post.html?post=${encodeURIComponent(slug)}`;
+  }
+
   function openCard(card) {
-    const href = card?.dataset?.href;
+    const href = resolveHref(card);
     if (href) window.location.href = href;
   }
+
   
-  // 鼠标点击：点卡片任意区域进入（但点到内部 <a> 比如分类 badge，不拦截）
   const handleClick = (e) => {
-    if (e.target.closest('a')) return;
-    
-    const card = e.target.closest('.post-card[data-href]');
-    if (!card) return;
-    
-    // 防误触：如果正在选中文字，就不跳
+
+    const a = e.target.closest("a");
+    if (a && a.getAttribute("href")) return;
+
+    const card = e.target.closest(".post-card");
+    if (!card || !listContainer.contains(card)) return;
+
+
     const sel = window.getSelection?.();
     if (sel && String(sel).trim()) return;
-    
+
     openCard(card);
   };
-  
-  // 键盘：Enter / Space 打开（因为 post-card 有 tabindex=0）
+
   const handleKeydown = (e) => {
-    const card = e.target.closest('.post-card[data-href]');
-    if (!card) return;
-    
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      openCard(card);
-    }
+    if (e.key !== "Enter" && e.key !== " ") return;
+
+    const card = e.target.closest(".post-card");
+    if (!card || !listContainer.contains(card)) return;
+
+    e.preventDefault();
+    openCard(card);
   };
-  
-  listContainer.addEventListener('click', handleClick);
-  listContainer.addEventListener('keydown', handleKeydown);
-  
+
+  listContainer.addEventListener("click", handleClick);
+  listContainer.addEventListener("keydown", handleKeydown);
+
   // 返回清理函数
   return () => {
-    listContainer.removeEventListener('click', handleClick);
-    listContainer.removeEventListener('keydown', handleKeydown);
+    listContainer.removeEventListener("click", handleClick);
+    listContainer.removeEventListener("keydown", handleKeydown);
   };
 }
 
-// 绑定搜索输入
-// 契约：接受输入元素和回调函数，返回清理函数
+
 export function setupSearchInput(inputEl, onSearch, debounceDelay = 120) {
   if (!inputEl || !onSearch) return () => {};
   
@@ -71,8 +85,6 @@ export function setupSearchInput(inputEl, onSearch, debounceDelay = 120) {
   };
 }
 
-// 绑定分类过滤器
-// 契约：接受容器元素和回调函数，返回清理函数
 export function setupCategoryFilters(container, onCategoryChange) {
   if (!container || !onCategoryChange) return () => {};
   
