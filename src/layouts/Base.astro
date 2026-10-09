@@ -1,0 +1,95 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "4ak5ra's Blog", description = "4ak5ra's Blog" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="alternate" type="application/rss+xml" title="4ak5ra's Blog" href="/rss.xml" />
+    <style is:inline>
+      .boot {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        margin: 0;
+        background:
+          linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.5)),
+          url("/assets/images/bg.jpg") 50% 35% / cover no-repeat #000;
+        color: #fff;
+        transition: opacity 0.55s ease, visibility 0.55s ease;
+      }
+      .boot.is-done {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .boot__name {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: clamp(22px, 4vw, 34px);
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-indent: 0.28em;
+        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      }
+      .boot__bar {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 38%;
+        height: 2px;
+        background: rgba(255, 180, 220, 0.95);
+        animation: boot-bar 1.05s ease-in-out infinite;
+      }
+      @keyframes boot-bar {
+        from { transform: translateX(-120%); }
+        to { transform: translateX(300%); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .boot { transition: none; }
+        .boot__bar { animation: none; }
+      }
+    </style>
+    <slot name="head" />
+  </head>
+  <body>
+    <div id="boot" class="boot">
+      <p class="boot__name">4ak5ra</p>
+      <span class="boot__bar"></span>
+    </div>
+    <script is:inline>
+      (function () {
+        var boot = document.getElementById('boot');
+        if (!boot) return;
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var hold = reduce ? 0 : 420;
+        var started = Date.now();
+        function hide() {
+          var wait = Math.max(0, hold - (Date.now() - started));
+          window.setTimeout(function () {
+            boot.classList.add('is-done');
+            var remove = function () {
+              if (boot.parentNode) boot.remove();
+            };
+            boot.addEventListener('transitionend', remove, { once: true });
+            window.setTimeout(remove, 700);
+          }, wait);
+        }
+        if (document.readyState === 'complete') hide();
+        else window.addEventListener('load', hide);
+      })();
+    </script>
+    <slot />
+  </body>
+</html>

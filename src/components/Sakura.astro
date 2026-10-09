@@ -1,0 +1,50 @@
+---
+interface Props {
+  flowers?: number;
+  speed?: number;
+  sizeMin?: number;
+  sizeMax?: number;
+  area?: number;
+  clearAlpha?: number;
+}
+
+const {
+  flowers = 1000,
+  speed = 1.3,
+  sizeMin = 0.7,
+  sizeMax = 1.1,
+  area = 18,
+  clearAlpha = 0,
+} = Astro.props;
+---
+
+<canvas
+  id="sakura"
+  class="sakura-canvas"
+  aria-hidden="true"
+  data-flowers={flowers}
+  data-speed={speed}
+  data-size-min={sizeMin}
+  data-size-max={sizeMax}
+  data-area={area}
+  data-clear-alpha={clearAlpha}
+></canvas>
+
+<script>
+  import { init_sakura } from '../effects/sakura.js';
+
+  const canvas = document.getElementById('sakura');
+  if (canvas) {
+    init_sakura({
+      canvas_id: 'sakura',
+      num_flowers: Number(canvas.dataset.flowers),
+      speed: Number(canvas.dataset.speed),
+      size_min: Number(canvas.dataset.sizeMin),
+      size_max: Number(canvas.dataset.sizeMax),
+      rotation: 0.25,
+      area: Number(canvas.dataset.area),
+      time_scale: 1.0,
+      clear_alpha: Number(canvas.dataset.clearAlpha),
+    });
+  }
+</script>

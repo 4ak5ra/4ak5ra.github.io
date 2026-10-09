@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import Sakura from '../components/Sakura.astro';
+import '../styles/links_page.css';
+---
+
+<Base title="友链 - 4ak5ra's Blog" description="朋友们的站点">
+  <main class="stage">
+    <Sakura flowers={260} speed={0.9} sizeMin={0.6} sizeMax={0.8} area={15} clearAlpha={0} />
+    <div class="decor-bg" aria-hidden="true">
+      <span class="bokeh b1"></span>
+      <span class="bokeh b2"></span>
+      <span class="bokeh b3"></span>
+      <span class="bokeh b4"></span>
+    </div>
+    <section class="paper" aria-label="信纸">
+      <div class="paper-fold" aria-hidden="true"></div>
+      <div class="paper-decor" aria-hidden="true"></div>
+      <div class="sheet" id="sheet" aria-label="信纸正文区域">
+        <div class="lines" id="lines" aria-hidden="true"></div>
+        <div class="text" id="text"></div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<script>
+  import { renderLetter } from '../scripts/links_letter.js';
+
+  renderLetter();
+  window.addEventListener('resize', renderLetter);
+</script>

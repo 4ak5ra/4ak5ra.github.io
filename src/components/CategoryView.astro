@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import {
+  categoryHref,
+  categoryOf,
+  dateOf,
+  formatEn,
+  postHref,
+  publishedPosts,
+  titleOf,
+} from '../lib/posts';
+import '../styles/reset.css';
+import '../styles/base.css';
+import '../styles/layout.css';
+import '../styles/components.css';
+import '../styles/pages/category.css';
+
+interface Props {
+  current?: string;
+}
+
+const { current = '' } = Astro.props;
+const posts = await publishedPosts();
+const categories = [...new Set(posts.map(categoryOf))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+const visible = current ? posts.filter((post) => categoryOf(post) === current) : posts;
+
+const groups = new Map<string, typeof visible>();
+for (const post of visible) {
+  const year = String(dateOf(post).getFullYear());
+  const list = groups.get(year) ?? [];
+  list.push(post);
+  groups.set(year, list);
+}
+const years = [...groups.keys()].sort((a, b) => Number(b) - Number(a));
+const pageTitle = current ? `分类：${current}` : '分类';
+---
+
+<Base title={`${pageTitle} - 4ak5ra's Blog`} description={pageTitle}>
+  <main class="scene category-page-scene" id="scene">
+    <div class="posts-filters" id="category_filters" aria-label="分类筛选">
+      <a class="pill" href="/category/" aria-pressed={current === '' ? 'true' : 'false'}>全部</a>
+      {
+        categories.map((category) => (
+          <a class="pill" href={categoryHref(category)} aria-pressed={current === category ? 'true' : 'false'}>
+            {category}
+          </a>
+        ))
+      }
+    </div>
+
+    <section id="posts_list" class="posts-archive">
+      {
+        years.length === 0 ? (
+          <p class="muted">暂无文章</p>
+        ) : (
+          years.map((year) => (
+            <div>
+              <h2 class="archive-year-title">{year}</h2>
+              <ul class="archive-list">
+                {(groups.get(year) ?? []).map((post) => (
+                  <li class="archive-item">
+                    <a class="archive-link" href={postHref(post.id)}>
+                      <span class="archive-date">{formatEn(dateOf(post))}</span>
+                      <span class="archive-title">{titleOf(post)}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        )
+      }
+    </section>
+
+    <div class="corner">
+      <a class="pill" href="/">主页</a>
+    </div>
+  </main>
+</Base>

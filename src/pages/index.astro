@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Menu from '../components/Menu.astro';
+import Sakura from '../components/Sakura.astro';
+import '../styles/reset.css';
+import '../styles/base.css';
+import '../styles/layout.css';
+import '../styles/components.css';
+import '../styles/home.css';
+---
+
+<Base title="4ak5ra's Blog" description="4ak5ra 的博客">
+  <main class="scene" id="scene">
+    <Sakura flowers={1000} speed={1.3} sizeMin={0.7} sizeMax={1.1} area={18} />
+    <Menu />
+    <div class="corner">
+      <a class="pill" href="/posts/">进入文章</a>
+      <a class="pill" href="/about/">About</a>
+    </div>
+  </main>
+</Base>

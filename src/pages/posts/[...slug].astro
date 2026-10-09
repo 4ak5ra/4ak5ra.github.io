@@ -1,0 +1,168 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import {
+  categoryHref,
+  categoryOf,
+  dateOf,
+  excerptOf,
+  formatZh,
+  postHref,
+  publishedPosts,
+  titleOf,
+} from '../../lib/posts';
+import '../../styles/reset.css';
+import '../../styles/base.css';
+import '../../styles/layout.css';
+import '../../styles/components.css';
+import '../../styles/post.css';
+import '../../styles/code.css';
+
+export async function getStaticPaths() {
+  const posts = await publishedPosts();
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      prev: index > 0 ? posts[index - 1] : null,
+      next: index < posts.length - 1 ? posts[index + 1] : null,
+    },
+  }));
+}
+
+const { post, prev, next } = Astro.props;
+const { Content, headings } = await render(post);
+const title = titleOf(post);
+const category = categoryOf(post);
+const date = dateOf(post);
+const description = excerptOf(post.body) || title;
+const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+
+<Base title={`${title} - 4ak5ra's Blog`} description={description}>
+  <main class="post-page" id="scene">
+    <div class="post-bg" aria-hidden="true"></div>
+    <aside class="toc" id="tocPanel" aria-label="目录">
+      <div class="toc__head">
+        <div class="toc__title">目录</div>
+        <div class="toc__actions">
+          <a class="pill pill--ghost" href="/posts/">← 列表</a>
+          <a class="pill pill--ghost" href="/">主页</a>
+        </div>
+      </div>
+      <nav class="toc__nav" id="toc">
+        {
+          toc.length === 0 ? (
+            <p class="muted">暂无目录</p>
+          ) : (
+            toc.map((heading) => (
+              <a class={heading.depth === 2 ? 'toc-l2' : 'toc-l3'} href={`#${heading.slug}`}>
+                {heading.text}
+              </a>
+            ))
+          )
+        }
+      </nav>
+    </aside>
+
+    <article class="post-content">
+      <div class="post-shell" id="post">
+        <header class="post-head">
+          <h2 class="post-h2">{title}</h2>
+          <p class="post-meta muted">
+            <time datetime={date.toISOString()}>{formatZh(date)}</time>
+            <span aria-hidden="true"> · </span>
+            <a class="badge" href={categoryHref(category)}>{category}</a>
+            {
+              post.data.tags.length > 0 && (
+                <>
+                  <span aria-hidden="true"> · </span>
+                  {post.data.tags.map((tag) => (
+                    <span class="badge">#{tag}</span>
+                  ))}
+                </>
+              )
+            }
+          </p>
+        </header>
+        <section class="prose">
+          <Content />
+        </section>
+      </div>
+
+      <nav class="post-nav" aria-label="上一篇下一篇">
+        <a class="pill" href={prev ? postHref(prev.id) : '#'} style={prev ? undefined : 'visibility:hidden'}>
+          {prev ? titleOf(prev) : '← Prev'}
+        </a>
+        <a class="pill" href="/posts/">返回列表</a>
+        <a class="pill" href={next ? postHref(next.id) : '#'} style={next ? undefined : 'visibility:hidden'}>
+          {next ? titleOf(next) : 'Next →'}
+        </a>
+      </nav>
+    </article>
+  </main>
+</Base>
+
+<script>
+  const scrollEl = document.querySelector<HTMLElement>('.post-content');
+  const tocEl = document.querySelector('#toc');
+
+  document.querySelectorAll<HTMLElement>('.prose pre').forEach((pre) => {
+    if (pre.querySelector('.copy-btn')) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'copy-btn';
+    button.textContent = 'Copy';
+    button.setAttribute('aria-label', 'Copy code');
+    button.addEventListener('click', async () => {
+      const code = pre.querySelector('code')?.innerText ?? '';
+      try {
+        await navigator.clipboard.writeText(code);
+        button.textContent = 'Copied';
+      } catch {
+        button.textContent = 'Failed';
+      }
+      window.setTimeout(() => {
+        button.textContent = 'Copy';
+      }, 1200);
+    });
+    pre.appendChild(button);
+  });
+
+  if (scrollEl && tocEl) {
+    const links = Array.from(tocEl.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'));
+    tocEl.addEventListener('click', (event) => {
+      const anchor = (event.target as Element | null)?.closest?.('a[href^="#"]');
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+      const id = anchor.getAttribute('href')?.slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      event.preventDefault();
+      const top =
+        target.getBoundingClientRect().top -
+        scrollEl.getBoundingClientRect().top +
+        scrollEl.scrollTop -
+        16;
+      scrollEl.scrollTo({ top, behavior: 'smooth' });
+    });
+
+    const markActive = () => {
+      if (links.length === 0) return;
+      let active = links[0];
+      const baseTop = scrollEl.getBoundingClientRect().top;
+      const currentTop = scrollEl.scrollTop;
+      for (const link of links) {
+        const id = link.getAttribute('href')?.slice(1);
+        const heading = id ? document.getElementById(id) : null;
+        if (!heading) continue;
+        const headingTop = heading.getBoundingClientRect().top - baseTop + currentTop;
+        if (headingTop <= currentTop + 120) active = link;
+      }
+      for (const link of links) link.classList.remove('is-active');
+      active?.classList.add('is-active');
+    };
+
+    scrollEl.addEventListener('scroll', markActive, { passive: true });
+    markActive();
+  }
+</script>

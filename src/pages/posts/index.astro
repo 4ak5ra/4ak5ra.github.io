@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import {
+  categoryHref,
+  categoryOf,
+  dateOf,
+  formatZh,
+  imageOf,
+  postHref,
+  publishedPosts,
+  titleOf,
+} from '../../lib/posts';
+import '../../styles/reset.css';
+import '../../styles/base.css';
+import '../../styles/layout.css';
+import '../../styles/components.css';
+import '../../styles/posts.css';
+
+const posts = await publishedPosts();
+---
+
+<Base title="文章列表 - 4ak5ra's Blog" description="全部文章">
+  <main class="scene" id="scene">
+    <section class="posts-shell" aria-label="文章列表区域">
+      <div class="posts-toolbar">
+        <input id="search" class="posts-search" type="search" placeholder="搜索标题/分类…" aria-label="搜索文章" />
+        <div class="posts-meta muted" id="meta">共 {posts.length} 篇</div>
+      </div>
+
+      <section id="posts-list" class="posts-grid" aria-live="polite">
+        {
+          posts.map((post) => {
+            const title = titleOf(post);
+            const category = categoryOf(post);
+            const date = dateOf(post);
+            return (
+              <article class="post-card fade-in" data-search={`${title} ${category}`.toLowerCase()}>
+                <a class="card-stretch" href={postHref(post.id)} aria-label={`打开文章：${title}`}></a>
+                <div class="post-cover">
+                  <img src={imageOf(post)} alt={title} loading="lazy" />
+                </div>
+                <div class="post-body">
+                  <div class="post-meta">
+                    <time datetime={date.toISOString()}>{formatZh(date)}</time>
+                    <a class="badge" href={categoryHref(category)}>
+                      {category}
+                    </a>
+                  </div>
+                  <h3 class="post-title">{title}</h3>
+                </div>
+              </article>
+            );
+          })
+        }
+      </section>
+      <p id="empty" class="muted" hidden>没有匹配的文章</p>
+    </section>
+
+    <div class="corner">
+      <a class="pill" href="/">返回主页</a>
+    </div>
+  </main>
+</Base>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('#search');
+  const meta = document.querySelector('#meta');
+  const empty = document.querySelector<HTMLElement>('#empty');
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.post-card'));
+
+  function applyFilter() {
+    const query = input?.value.trim().toLowerCase() ?? '';
+    let visible = 0;
+    for (const card of cards) {
+      const haystack = card.dataset.search ?? '';
+      const matched = query === '' || haystack.includes(query);
+      card.hidden = !matched;
+      if (matched) visible += 1;
+    }
+    if (meta) {
+      meta.textContent = query ? `显示 ${visible} / ${cards.length} 篇` : `共 ${cards.length} 篇`;
+    }
+    if (empty) empty.hidden = visible !== 0;
+  }
+
+  input?.addEventListener('input', applyFilter);
+</script>

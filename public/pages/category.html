@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>跳转中…</title>
+</head>
+<body>
+  <script>
+    const cat = new URLSearchParams(location.search).get('cat');
+    location.replace(cat ? '/category/' + encodeURIComponent(cat) + '/' : '/category/');
+  </script>
+</body>
+</html>

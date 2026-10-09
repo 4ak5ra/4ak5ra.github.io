@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>跳转中…</title>
+</head>
+<body>
+  <p>正在打开文章…</p>
+  <script>
+    const slug = new URLSearchParams(location.search).get('post') || '';
+    fetch('/legacy-map.json')
+      .then((res) => res.json())
+      .then((map) => location.replace(map[slug] || '/posts/'))
+      .catch(() => location.replace('/posts/'));
+  </script>
+</body>
+</html>

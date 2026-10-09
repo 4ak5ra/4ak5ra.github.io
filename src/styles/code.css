@@ -1,0 +1,60 @@
+.prose pre.astro-code {
+  position: relative;
+  margin: 16px 0;
+  border-radius: 12px;
+  overflow: auto;
+  background: var(--code-bg) !important;
+  border: 1px solid var(--code-border);
+  box-shadow: 0 8px 22px rgba(70, 30, 48, 0.06);
+  padding: 42px 16px 14px !important;
+  color: #241c20;
+}
+
+.prose pre.astro-code code {
+  background: transparent !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.prose pre.astro-code::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #f3e4ea;
+  border: 1px solid rgba(80, 30, 50, 0.12);
+  color: #5c3144;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.prose pre.astro-code:not([data-language])::before,
+.prose pre.astro-code[data-language=""]::before {
+  content: none;
+}
+
+.prose pre.astro-code .copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(80, 30, 50, 0.12);
+  background: #f3e4ea;
+  color: #5c3144;
+  cursor: pointer;
+}
+
+.prose pre.astro-code .copy-btn:hover {
+  transform: translateY(-1px);
+}
+
+.prose img {
+  height: auto;
+  border-radius: 12px;
+}

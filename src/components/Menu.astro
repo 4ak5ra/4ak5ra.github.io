@@ -1,0 +1,21 @@
+---
+import { MENU_ITEMS } from '../data/menu';
+---
+
+<nav class="menu" id="menu" aria-label="主页菜单">
+  {
+    MENU_ITEMS.map((item) => (
+      <a
+        class:list={['menu-item', { 'menu-item--featured': item.featured }]}
+        href={item.href}
+        style={`left:${item.x}%;top:${item.y}%`}
+      >
+        <div class="avatar">
+          <img src={item.img} alt={item.title} />
+          <img class="hover" src={item.imgHover} alt="" />
+        </div>
+        <div class="ribbon">{item.title}</div>
+      </a>
+    ))
+  }
+</nav>

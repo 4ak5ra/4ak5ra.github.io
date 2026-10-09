@@ -1,0 +1,41 @@
+{
+  "name": "vn-blog",
+  "type": "light",
+  "colors": {
+    "editor.background": "#F4D5E4",
+    "editor.foreground": "#0A0A10"
+  },
+  "tokenColors": [
+    {
+      "scope": ["comment", "punctuation.definition.comment"],
+      "settings": { "foreground": "#0A8D11" }
+    },
+    {
+      "scope": ["keyword", "keyword.control", "storage", "storage.type"],
+      "settings": { "foreground": "#DD0808", "fontStyle": "bold" }
+    },
+    {
+      "scope": ["string", "constant.numeric", "constant.language", "constant.character"],
+      "settings": { "foreground": "#CA1871" }
+    },
+    {
+      "scope": [
+        "entity.name.function",
+        "support.function",
+        "entity.name.class",
+        "entity.name.type",
+        "support.type",
+        "support.class"
+      ],
+      "settings": { "foreground": "#490FBD" }
+    },
+    {
+      "scope": ["entity.name.tag", "entity.other.attribute-name", "meta.selector"],
+      "settings": { "foreground": "#0B0C69" }
+    },
+    {
+      "scope": ["punctuation", "keyword.operator", "variable", "support.variable"],
+      "settings": { "foreground": "#0A0A10" }
+    }
+  ]
+}

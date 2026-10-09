@@ -1,0 +1,17 @@
+---
+import CategoryView from '../../components/CategoryView.astro';
+import { categoryOf, publishedPosts } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await publishedPosts();
+  const categories = [...new Set(posts.map(categoryOf))];
+  return categories.map((category) => ({
+    params: { category },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+---
+
+<CategoryView current={category} />
