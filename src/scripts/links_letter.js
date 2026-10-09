@@ -16,8 +16,7 @@ const LETTER = [
   '       komiko:https://notion-next-yeye.vercel.app/|密码大手子',
   '       KiraKiraAyu:https://www.kkayu.com/|不止是前端大王',
   '       ivory:https://ireel.github.io/|带我打web,还带我吃生蚝',
-  '       sleeper:https://4ak5ra.github.io/|太好了是安卓✌🏻我们有救了',
-  '       Byte:https://www.0xbyt3.com/|pwn学弟',
+  '       sleeper:https://fwmax360.github.io/|太好了是安卓✌🏻我们有救了',
 ].join('\n');
 
 function rgbaToOpaque(rgba) {
